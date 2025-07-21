@@ -1,4 +1,4 @@
-To run SAERM, you must compile *hostapd* by following this tutorial:
+To run SAERM, you must compile `hostapd` by following this tutorial:
 
 ## Using simulated Wi-Fi interfaces
 
@@ -17,7 +17,7 @@ See [backport drivers](#id-backport-drivers) to manually compile this kernel mod
 Then from the root of the repository:
 
 ```bash
-cd hostapd-wpa3/hostapd/
+cd hostap-wpa3/hostapd/
 cp defconfig .config
 make clean
 make -j 4
@@ -32,27 +32,27 @@ This will get the virtual interfaces setup in monitor mode for WiFi testing.
 sudo ./hostapd -dd -K hostapd_wpa3.conf
 ```
 
-This will spawn a *hostapd* process. You may now return to the root of the repository.
+This will spawn a `hostapd` process. You may now return to the root of the repository.
 
 ## Run SAECRED
 
-Enter *WiFiPacketGen-saerm* and follow the opam and dune installation steps. Once complete run:
+Enter `WiFiPacketGen-saerm` and follow the opam and dune installation steps. Once complete run:
 
 ```bash
 dune exec sbf -- --saecred
 ```
 
-In the event of missing dependencies, install the *opam* dependencies using:
+In the event of missing dependencies, install the `opam` dependencies using:
 
 ```bash
 opam install <library>
 ```
 
-Rerun the *dune* command.
+Rerun the `dune` command.
 
 ## Run the WiFi driver and LTL-runtime monitor
 
-Enter *wifi-driver-saerm/src*, and run:
+Enter `wifi-driver-saerm/src`, and run:
 
 ```bash
 ./run_fuzzer
@@ -64,4 +64,4 @@ Install missing dependencies using:
 sudo apt install <dependency>
 ```
 
-This will spawn the driver and the C++ runtime monitor. Results of the monitor will populate in *wifi-driver-saerm/src/runtime_monitor.txt*. Once you are satisfied by the campaign time, simply *CTRL+C* and run the *wifi-driver-saerm/src/runtime_filter.py* to filter out and parse the runtime monitor results.
+This will spawn the driver and the C++ runtime monitor. Results of the monitor will populate in `wifi-driver-saerm/src/runtime_monitor.txt`. Once you are satisfied by the campaign time, simply `CTRL+C` and run the `wifi-driver-saerm/src/runtime_filter.py` to filter out and parse the runtime monitor results.
