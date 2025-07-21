@@ -1,0 +1,42 @@
+#!/bin/sh 
+# sudo airmon-ng check kill
+make clean
+make fuzzer 
+# "Pirwani-TP-Link_0C78"
+# 5c628b0d0c77
+# sudo \
+
+rm -f output_hell_yeah.txt
+rm -f runtime_monitor.txt
+
+# sudo valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --log-file=valgrind-out.txt ./fuzzer pirwani-ASUS-TUF correctPassword 001c500e4630 c87f5424a07c wlan0 wlx001c500e4630 ../../WiFiPacketGen/sync/message.txt ../../WiFiPacketGen/sync/response.txt ../../WiFiPacketGen/sync/oracle-response.txt
+# sudo valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --log-file=valgrind-out.txt ./fuzzer pirwani correctPassword 020000000100 020000000200 wlan1 wlx001c500e4630 ../../WiFiPacketGen/sync/message.txt ../../WiFiPacketGen/sync/response.txt ../../WiFiPacketGen/sync/oracle-response.txt
+
+# sudo valgrind --leak-check=full \
+#          --show-leak-kinds=all \
+#          --track-origins=yes \
+#          --verbose \
+#          --log-file=valgrind-out.txt \
+#          ./treplayer pirwani-ASUS-TUF correctPassword 0087338f2804 c87f5424a07c wlan0 wlx0087338f2804 interesting_traces.txt output_hell_yeah.txt
+
+# rm -f output_hell_yeah.txt
+# sudo ./treplayer pirwani-ASUS-TUF correctPassword 0087338f2804 c87f5424a07c wlan0 wlx0087338f2804 interesting_traces.txt output_hell_yeah.txt
+
+#Daniyal's Machine 
+# sudo ./fuzzer pirwani-ASUS-TUF correctPassword 001c500e4630 c87f5424a07c wlan0 wlx001c500e4630 ../../WiFiPacketGen/sync/message.txt ../../WiFiPacketGen/sync/response.txt ../../WiFiPacketGen/sync/oracle-response.txt
+# sudo ./fuzzer Pirwani-ASUS-1800S correctPassword 001c500e4630 e89c25b81e18 wlan0 wlx001c500e4630 ../../WiFiPacketGen/sync/message.txt ../../WiFiPacketGen/sync/response.txt ../../WiFiPacketGen/sync/oracle-response.txt
+# sudo ./fuzzer Pirwani-TP-Link_0C78 correctPassword 00873f200d1e 5c628b0d0c77 wlan0 wlx00873f200d1e ../../WiFiPacketGen/sync/message.txt ../../WiFiPacketGen/sync/response.txt ../../WiFiPacketGen/sync/oracle-response.txt
+
+
+sudo ./fuzzer testbed correctPassword 020000000100 020000000300 wlan1 wlan1 ../../WiFiPacketGen/sync/message.txt ../../WiFiPacketGen/sync/response.txt ../../WiFiPacketGen/sync/oracle-response.txt
+
+#Trace replayer:
+# sudo ./fuzzer pirwani correctPassword 020000000100 020000000300 wlan1 wlan1 interesting_traces.txt output_from_replayer.txt ../../WiFiPacketGen/sync/oracle-response.txt
+
+
+#Omar's Machine 
+#sudo ./treplayer pirwani-ASUS-TUF correctPassword 001c500e4630 c87f5424a07c wlan3 wlx001c500e4630 interesting_traces.txt output_hell_yeah.txt
+
+sudo airmon-ng stop wlan1
+# sudo chown omar valgrind-out.txt
+# sudo service NetworkManager start

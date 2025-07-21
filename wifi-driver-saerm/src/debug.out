@@ -1,0 +1,916 @@
+rm -f *.o driver fuzzer treplayer 
+# rm -f *.o treplayer
+gcc -w -Iltl-parser -c h2e.c 
+gcc -w -Iltl-parser -c sendFrame.c
+gcc -w -Iltl-parser -c driver.c
+gcc -w -Iltl-parser -c looping.c 
+gcc -w -Iltl-parser -c oracle-parser.c
+gcc -w -Iltl-parser -c replacement.c 
+gcc -w -Iltl-parser -c sae_assoc.c
+g++ -w -Iltl-parser -c warningmsgs.cpp 
+g++ -w -Iltl-parser -c wrapper.cpp 
+g++ -w -Iltl-parser -c generalutil.cpp
+g++ -w -Iltl-parser -c connection.cpp 
+g++ -w -Iltl-parser -c predicate_transformer.cpp
+g++ -w -Iltl-parser -c ltl-parser/state.cpp
+g++ -w -Iltl-parser -c ltl-parser/typechecker.cpp
+g++ -w -Iltl-parser -c ltl-parser/bitvector.cpp
+g++ -w -Iltl-parser -c ltl-parser/evaluator.cpp
+g++ -w -Iltl-parser -c ltl-parser/memory_manager.cpp
+g++ -w -Iltl-parser -c ltl-parser/preprocess.cpp
+flex -o lexer.cpp ltl-parser/lexer.l
+bison -d -o parser.cpp ltl-parser/parser.y
+g++ -w -Iltl-parser -c parser.cpp
+g++ -w -Iltl-parser -c lexer.cpp
+g++ -w -Iltl-parser -c ltl-parser/ast_printer.cpp
+g++ -w -Iltl-parser -c fuzzer.cpp
+g++ -w -Iltl-parser -o fuzzer -DFUZZER main.cpp ast_printer.o fuzzer.o parser.o lexer.o memory_manager.o typechecker.o preprocess.o state.o evaluator.o bitvector.o predicate_transformer.o warningmsgs.o wrapper.o generalutil.o connection.o driver.o oracle-parser.o replacement.o h2e.o looping.o sendFrame.o sae_assoc.o -lcrypto -lm
+parsing specification..
+Parsing successful!
+Type check passed.
+Node Type: H_OPERATOR
+  Serial Number: 0
+  Child:
+    Node Type: IMPLICATION
+      Serial Number: 1
+      Left:
+        Node Type: AND
+          Serial Number: 2
+          Left:
+            Node Type: AND
+              Serial Number: 3
+              Left:
+                Node Type: OR
+                  Serial Number: 4
+                  Left:
+                    Node Type: EQUAL
+                      Serial Number: 5
+                      Left:
+                        Node Type: IDENTIFIER
+                          Identifier: request
+                          Serial Number: 6
+                      Right:
+                        Node Type: IDENTIFIER
+                          Identifier: client_commit_error
+                          Serial Number: 7
+                  Right:
+                    Node Type: EQUAL
+                      Serial Number: 8
+                      Left:
+                        Node Type: IDENTIFIER
+                          Identifier: request
+                          Serial Number: 9
+                      Right:
+                        Node Type: IDENTIFIER
+                          Identifier: client_commit_success
+                          Serial Number: 10
+              Right:
+                Node Type: EQUAL
+                  Serial Number: 11
+                  Left:
+                    Node Type: IDENTIFIER
+                      Identifier: client_status_code
+                      Serial Number: 12
+                  Right:
+                    Node Type: INTEGER
+                      Value: 77
+                      Serial Number: 13
+          Right:
+            Node Type: EQUAL
+              Serial Number: 14
+              Left:
+                Node Type: IDENTIFIER
+                  Identifier: group
+                  Serial Number: 15
+              Right:
+                Node Type: IDENTIFIER
+                  Identifier: prev_ap_group
+                  Serial Number: 16
+      Right:
+        Node Type: AND
+          Serial Number: 17
+          Left:
+            Node Type: EQUAL
+              Serial Number: 18
+              Left:
+                Node Type: IDENTIFIER
+                  Identifier: response
+                  Serial Number: 19
+              Right:
+                Node Type: IDENTIFIER
+                  Identifier: ap_commit_success
+                  Serial Number: 20
+          Right:
+            Node Type: AND
+              Serial Number: 21
+              Left:
+                Node Type: GREATER_THAN_EQUAL
+                  Serial Number: 22
+                  Left:
+                    Node Type: IDENTIFIER
+                      Identifier: ap_group
+                      Serial Number: 23
+                  Right:
+                    Node Type: INTEGER
+                      Value: 19
+                      Serial Number: 24
+              Right:
+                Node Type: LESS_THAN_EQUAL
+                  Serial Number: 25
+                  Left:
+                    Node Type: IDENTIFIER
+                      Identifier: ap_group
+                      Serial Number: 26
+                  Right:
+                    Node Type: INTEGER
+                      Value: 21
+                      Serial Number: 27
+Node Type: H_OPERATOR
+  Serial Number: 0
+  Child:
+    Node Type: IMPLICATION
+      Serial Number: 1
+      Left:
+        Node Type: AND
+          Serial Number: 2
+          Left:
+            Node Type: AND
+              Serial Number: 3
+              Left:
+                Node Type: EQUAL
+                  Serial Number: 4
+                  Left:
+                    Node Type: IDENTIFIER
+                      Identifier: request
+                      Serial Number: 5
+                  Right:
+                    Node Type: IDENTIFIER
+                      Identifier: client_commit_bad
+                      Serial Number: 6
+              Right:
+                Node Type: EQUAL
+                  Serial Number: 7
+                  Left:
+                    Node Type: IDENTIFIER
+                      Identifier: client_status_code
+                      Serial Number: 8
+                  Right:
+                    Node Type: INTEGER
+                      Value: 77
+                      Serial Number: 9
+          Right:
+            Node Type: EQUAL
+              Serial Number: 10
+              Left:
+                Node Type: IDENTIFIER
+                  Identifier: group
+                  Serial Number: 11
+              Right:
+                Node Type: IDENTIFIER
+                  Identifier: prev_ap_group
+                  Serial Number: 12
+      Right:
+        Node Type: EQUAL
+          Serial Number: 13
+          Left:
+            Node Type: IDENTIFIER
+              Identifier: response
+              Serial Number: 14
+          Right:
+            Node Type: IDENTIFIER
+              Identifier: timeout
+              Serial Number: 15
+Node Type: H_OPERATOR
+  Serial Number: 0
+  Child:
+    Node Type: IMPLICATION
+      Serial Number: 1
+      Left:
+        Node Type: AND
+          Serial Number: 2
+          Left:
+            Node Type: AND
+              Serial Number: 3
+              Left:
+                Node Type: OR
+                  Serial Number: 4
+                  Left:
+                    Node Type: OR
+                      Serial Number: 5
+                      Left:
+                        Node Type: EQUAL
+                          Serial Number: 6
+                          Left:
+                            Node Type: IDENTIFIER
+                              Identifier: request
+                              Serial Number: 7
+                          Right:
+                            Node Type: IDENTIFIER
+                              Identifier: client_commit_error
+                              Serial Number: 8
+                      Right:
+                        Node Type: EQUAL
+                          Serial Number: 9
+                          Left:
+                            Node Type: IDENTIFIER
+                              Identifier: request
+                              Serial Number: 10
+                          Right:
+                            Node Type: IDENTIFIER
+                              Identifier: client_commit_bad
+                              Serial Number: 11
+                  Right:
+                    Node Type: EQUAL
+                      Serial Number: 12
+                      Left:
+                        Node Type: IDENTIFIER
+                          Identifier: request
+                          Serial Number: 13
+                      Right:
+                        Node Type: IDENTIFIER
+                          Identifier: client_commit_success
+                          Serial Number: 14
+              Right:
+                Node Type: EQUAL
+                  Serial Number: 15
+                  Left:
+                    Node Type: IDENTIFIER
+                      Identifier: client_status_code
+                      Serial Number: 16
+                  Right:
+                    Node Type: INTEGER
+                      Value: 77
+                      Serial Number: 17
+          Right:
+            Node Type: NOT_EQUAL
+              Serial Number: 18
+              Left:
+                Node Type: IDENTIFIER
+                  Identifier: group
+                  Serial Number: 19
+              Right:
+                Node Type: IDENTIFIER
+                  Identifier: prev_ap_group
+                  Serial Number: 20
+      Right:
+        Node Type: EQUAL
+          Serial Number: 21
+          Left:
+            Node Type: IDENTIFIER
+              Identifier: response
+              Serial Number: 22
+          Right:
+            Node Type: IDENTIFIER
+              Identifier: timeout
+              Serial Number: 23
+Node Type: H_OPERATOR
+  Serial Number: 0
+  Child:
+    Node Type: IMPLICATION
+      Serial Number: 1
+      Left:
+        Node Type: AND
+          Serial Number: 2
+          Left:
+            Node Type: AND
+              Serial Number: 3
+              Left:
+                Node Type: AND
+                  Serial Number: 4
+                  Left:
+                    Node Type: EQUAL
+                      Serial Number: 5
+                      Left:
+                        Node Type: IDENTIFIER
+                          Identifier: request
+                          Serial Number: 6
+                      Right:
+                        Node Type: IDENTIFIER
+                          Identifier: client_commit_success
+                          Serial Number: 7
+                  Right:
+                    Node Type: OR
+                      Serial Number: 8
+                      Left:
+                        Node Type: EQUAL
+                          Serial Number: 9
+                          Left:
+                            Node Type: IDENTIFIER
+                              Identifier: client_status_code
+                              Serial Number: 10
+                          Right:
+                            Node Type: INTEGER
+                              Value: 0
+                              Serial Number: 11
+                      Right:
+                        Node Type: EQUAL
+                          Serial Number: 12
+                          Left:
+                            Node Type: IDENTIFIER
+                              Identifier: client_status_code
+                              Serial Number: 13
+                          Right:
+                            Node Type: INTEGER
+                              Value: 126
+                              Serial Number: 14
+              Right:
+                Node Type: NOT_EQUAL
+                  Serial Number: 15
+                  Left:
+                    Node Type: IDENTIFIER
+                      Identifier: group
+                      Serial Number: 16
+                  Right:
+                    Node Type: INTEGER
+                      Value: -1
+                      Serial Number: 17
+          Right:
+            Node Type: OR
+              Serial Number: 18
+              Left:
+                Node Type: LESS_THAN
+                  Serial Number: 19
+                  Left:
+                    Node Type: IDENTIFIER
+                      Identifier: group
+                      Serial Number: 20
+                  Right:
+                    Node Type: INTEGER
+                      Value: 19
+                      Serial Number: 21
+              Right:
+                Node Type: GREATER_THAN
+                  Serial Number: 22
+                  Left:
+                    Node Type: IDENTIFIER
+                      Identifier: group
+                      Serial Number: 23
+                  Right:
+                    Node Type: INTEGER
+                      Value: 21
+                      Serial Number: 24
+      Right:
+        Node Type: AND
+          Serial Number: 25
+          Left:
+            Node Type: EQUAL
+              Serial Number: 26
+              Left:
+                Node Type: IDENTIFIER
+                  Identifier: response
+                  Serial Number: 27
+              Right:
+                Node Type: IDENTIFIER
+                  Identifier: ap_commit_error
+                  Serial Number: 28
+          Right:
+            Node Type: EQUAL
+              Serial Number: 29
+              Left:
+                Node Type: IDENTIFIER
+                  Identifier: ap_status_code
+                  Serial Number: 30
+              Right:
+                Node Type: INTEGER
+                  Value: 77
+                  Serial Number: 31
+Node Type: H_OPERATOR
+  Serial Number: 0
+  Child:
+    Node Type: IMPLICATION
+      Serial Number: 1
+      Left:
+        Node Type: AND
+          Serial Number: 2
+          Left:
+            Node Type: AND
+              Serial Number: 3
+              Left:
+                Node Type: AND
+                  Serial Number: 4
+                  Left:
+                    Node Type: OR
+                      Serial Number: 5
+                      Left:
+                        Node Type: EQUAL
+                          Serial Number: 6
+                          Left:
+                            Node Type: IDENTIFIER
+                              Identifier: request
+                              Serial Number: 7
+                          Right:
+                            Node Type: IDENTIFIER
+                              Identifier: client_commit_error
+                              Serial Number: 8
+                      Right:
+                        Node Type: EQUAL
+                          Serial Number: 9
+                          Left:
+                            Node Type: IDENTIFIER
+                              Identifier: request
+                              Serial Number: 10
+                          Right:
+                            Node Type: IDENTIFIER
+                              Identifier: client_commit_bad
+                              Serial Number: 11
+                  Right:
+                    Node Type: NOT_EQUAL
+                      Serial Number: 12
+                      Left:
+                        Node Type: IDENTIFIER
+                          Identifier: client_status_code
+                          Serial Number: 13
+                      Right:
+                        Node Type: INTEGER
+                          Value: -1
+                          Serial Number: 14
+              Right:
+                Node Type: NOT_EQUAL
+                  Serial Number: 15
+                  Left:
+                    Node Type: IDENTIFIER
+                      Identifier: client_status_code
+                      Serial Number: 16
+                  Right:
+                    Node Type: INTEGER
+                      Value: 0
+                      Serial Number: 17
+          Right:
+            Node Type: NOT_EQUAL
+              Serial Number: 18
+              Left:
+                Node Type: IDENTIFIER
+                  Identifier: client_status_code
+                  Serial Number: 19
+              Right:
+                Node Type: INTEGER
+                  Value: 126
+                  Serial Number: 20
+      Right:
+        Node Type: EQUAL
+          Serial Number: 21
+          Left:
+            Node Type: IDENTIFIER
+              Identifier: response
+              Serial Number: 22
+          Right:
+            Node Type: IDENTIFIER
+              Identifier: timeout
+              Serial Number: 23
+Node Type: H_OPERATOR
+  Serial Number: 0
+  Child:
+    Node Type: IMPLICATION
+      Serial Number: 1
+      Left:
+        Node Type: AND
+          Serial Number: 2
+          Left:
+            Node Type: Y_OPERATOR
+              Serial Number: 3
+              Child:
+                Node Type: O_OPERATOR
+                  Serial Number: 4
+                  Child:
+                    Node Type: EQUAL
+                      Serial Number: 5
+                      Left:
+                        Node Type: IDENTIFIER
+                          Identifier: response
+                          Serial Number: 6
+                      Right:
+                        Node Type: IDENTIFIER
+                          Identifier: ap_commit_ac_token
+                          Serial Number: 7
+          Right:
+            Node Type: AND
+              Serial Number: 8
+              Left:
+                Node Type: NOT_EQUAL
+                  Serial Number: 9
+                  Left:
+                    Node Type: IDENTIFIER
+                      Identifier: request
+                      Serial Number: 10
+                  Right:
+                    Node Type: IDENTIFIER
+                      Identifier: client_commit_success_ac_token
+                      Serial Number: 11
+              Right:
+                Node Type: EQUAL
+                  Serial Number: 12
+                  Left:
+                    Node Type: IDENTIFIER
+                      Identifier: request
+                      Serial Number: 13
+                  Right:
+                    Node Type: IDENTIFIER
+                      Identifier: client_commit_success
+                      Serial Number: 14
+      Right:
+        Node Type: OR
+          Serial Number: 15
+          Left:
+            Node Type: EQUAL
+              Serial Number: 16
+              Left:
+                Node Type: IDENTIFIER
+                  Identifier: response
+                  Serial Number: 17
+              Right:
+                Node Type: IDENTIFIER
+                  Identifier: timeout
+                  Serial Number: 18
+          Right:
+            Node Type: EQUAL
+              Serial Number: 19
+              Left:
+                Node Type: IDENTIFIER
+                  Identifier: response
+                  Serial Number: 20
+              Right:
+                Node Type: IDENTIFIER
+                  Identifier: ap_commit_ac_token
+                  Serial Number: 21
+Node Type: H_OPERATOR
+  Serial Number: 0
+  Child:
+    Node Type: IMPLICATION
+      Serial Number: 1
+      Left:
+        Node Type: AND
+          Serial Number: 2
+          Left:
+            Node Type: Y_OPERATOR
+              Serial Number: 3
+              Child:
+                Node Type: O_OPERATOR
+                  Serial Number: 4
+                  Child:
+                    Node Type: EQUAL
+                      Serial Number: 5
+                      Left:
+                        Node Type: IDENTIFIER
+                          Identifier: response
+                          Serial Number: 6
+                      Right:
+                        Node Type: IDENTIFIER
+                          Identifier: ap_commit_ac_token
+                          Serial Number: 7
+          Right:
+            Node Type: EQUAL
+              Serial Number: 8
+              Left:
+                Node Type: IDENTIFIER
+                  Identifier: request
+                  Serial Number: 9
+              Right:
+                Node Type: IDENTIFIER
+                  Identifier: client_commit_success_ac_token
+                  Serial Number: 10
+      Right:
+        Node Type: EQUAL
+          Serial Number: 11
+          Left:
+            Node Type: IDENTIFIER
+              Identifier: response
+              Serial Number: 12
+          Right:
+            Node Type: IDENTIFIER
+              Identifier: ap_commit_success
+              Serial Number: 13
+Node Type: H_OPERATOR
+  Serial Number: 0
+  Child:
+    Node Type: IMPLICATION
+      Serial Number: 1
+      Left:
+        Node Type: AND
+          Serial Number: 2
+          Left:
+            Node Type: EQUAL
+              Serial Number: 3
+              Left:
+                Node Type: IDENTIFIER
+                  Identifier: request
+                  Serial Number: 4
+              Right:
+                Node Type: IDENTIFIER
+                  Identifier: client_commit_reuse
+                  Serial Number: 5
+          Right:
+            Node Type: Y_OPERATOR
+              Serial Number: 6
+              Child:
+                Node Type: O_OPERATOR
+                  Serial Number: 7
+                  Child:
+                    Node Type: EQUAL
+                      Serial Number: 8
+                      Left:
+                        Node Type: IDENTIFIER
+                          Identifier: response
+                          Serial Number: 9
+                      Right:
+                        Node Type: IDENTIFIER
+                          Identifier: ap_confirm_success
+                          Serial Number: 10
+      Right:
+        Node Type: EQUAL
+          Serial Number: 11
+          Left:
+            Node Type: IDENTIFIER
+              Identifier: response
+              Serial Number: 12
+          Right:
+            Node Type: IDENTIFIER
+              Identifier: timeout
+              Serial Number: 13
+Node Type: H_OPERATOR
+  Serial Number: 0
+  Child:
+    Node Type: IMPLICATION
+      Serial Number: 1
+      Left:
+        Node Type: EQUAL
+          Serial Number: 2
+          Left:
+            Node Type: IDENTIFIER
+              Identifier: response
+              Serial Number: 3
+          Right:
+            Node Type: IDENTIFIER
+              Identifier: association_response
+              Serial Number: 4
+      Right:
+        Node Type: AND
+          Serial Number: 5
+          Left:
+            Node Type: EQUAL
+              Serial Number: 6
+              Left:
+                Node Type: IDENTIFIER
+                  Identifier: request
+                  Serial Number: 7
+              Right:
+                Node Type: IDENTIFIER
+                  Identifier: association_request
+                  Serial Number: 8
+          Right:
+            Node Type: Y_OPERATOR
+              Serial Number: 9
+              Child:
+                Node Type: O_OPERATOR
+                  Serial Number: 10
+                  Child:
+                    Node Type: AND
+                      Serial Number: 11
+                      Left:
+                        Node Type: AND
+                          Serial Number: 12
+                          Left:
+                            Node Type: EQUAL
+                              Serial Number: 13
+                              Left:
+                                Node Type: IDENTIFIER
+                                  Identifier: request
+                                  Serial Number: 14
+                              Right:
+                                Node Type: IDENTIFIER
+                                  Identifier: client_confirm_success
+                                  Serial Number: 15
+                          Right:
+                            Node Type: EQUAL
+                              Serial Number: 16
+                              Left:
+                                Node Type: IDENTIFIER
+                                  Identifier: response
+                                  Serial Number: 17
+                              Right:
+                                Node Type: IDENTIFIER
+                                  Identifier: ap_confirm_success
+                                  Serial Number: 18
+                      Right:
+                        Node Type: O_OPERATOR
+                          Serial Number: 19
+                          Child:
+                            Node Type: AND
+                              Serial Number: 20
+                              Left:
+                                Node Type: EQUAL
+                                  Serial Number: 21
+                                  Left:
+                                    Node Type: IDENTIFIER
+                                      Identifier: request
+                                      Serial Number: 22
+                                  Right:
+                                    Node Type: IDENTIFIER
+                                      Identifier: client_commit_success
+                                      Serial Number: 23
+                              Right:
+                                Node Type: EQUAL
+                                  Serial Number: 24
+                                  Left:
+                                    Node Type: IDENTIFIER
+                                      Identifier: response
+                                      Serial Number: 25
+                                  Right:
+                                    Node Type: IDENTIFIER
+                                      Identifier: ap_commit_success
+                                      Serial Number: 26
+Node Type: H_OPERATOR
+  Serial Number: 0
+  Child:
+    Node Type: IMPLICATION
+      Serial Number: 1
+      Left:
+        Node Type: EQUAL
+          Serial Number: 2
+          Left:
+            Node Type: IDENTIFIER
+              Identifier: response
+              Serial Number: 3
+          Right:
+            Node Type: IDENTIFIER
+              Identifier: ap_confirm_success
+              Serial Number: 4
+      Right:
+        Node Type: O_OPERATOR
+          Serial Number: 5
+          Child:
+            Node Type: AND
+              Serial Number: 6
+              Left:
+                Node Type: EQUAL
+                  Serial Number: 7
+                  Left:
+                    Node Type: IDENTIFIER
+                      Identifier: request
+                      Serial Number: 8
+                  Right:
+                    Node Type: IDENTIFIER
+                      Identifier: client_commit_success
+                      Serial Number: 9
+              Right:
+                Node Type: EQUAL
+                  Serial Number: 10
+                  Left:
+                    Node Type: IDENTIFIER
+                      Identifier: response
+                      Serial Number: 11
+                  Right:
+                    Node Type: IDENTIFIER
+                      Identifier: ap_commit_success
+                      Serial Number: 12
+Node Type: H_OPERATOR
+  Serial Number: 0
+  Child:
+    Node Type: IMPLICATION
+      Serial Number: 1
+      Left:
+        Node Type: AND
+          Serial Number: 2
+          Left:
+            Node Type: AND
+              Serial Number: 3
+              Left:
+                Node Type: EQUAL
+                  Serial Number: 4
+                  Left:
+                    Node Type: IDENTIFIER
+                      Identifier: request
+                      Serial Number: 5
+                  Right:
+                    Node Type: IDENTIFIER
+                      Identifier: client_commit_success
+                      Serial Number: 6
+              Right:
+                Node Type: EQUAL
+                  Serial Number: 7
+                  Left:
+                    Node Type: IDENTIFIER
+                      Identifier: rg_container
+                      Serial Number: 8
+                  Right:
+                    Node Type: BOOLEAN
+                      Value: true
+                      Serial Number: 9
+          Right:
+            Node Type: EQUAL
+              Serial Number: 10
+              Left:
+                Node Type: IDENTIFIER
+                  Identifier: support
+                  Serial Number: 11
+              Right:
+                Node Type: IDENTIFIER
+                  Identifier: supported
+                  Serial Number: 12
+      Right:
+        Node Type: EQUAL
+          Serial Number: 13
+          Left:
+            Node Type: IDENTIFIER
+              Identifier: response
+              Serial Number: 14
+          Right:
+            Node Type: IDENTIFIER
+              Identifier: timeout
+              Serial Number: 15
+Node Type: H_OPERATOR
+  Serial Number: 0
+  Child:
+    Node Type: IMPLICATION
+      Serial Number: 1
+      Left:
+        Node Type: AND
+          Serial Number: 2
+          Left:
+            Node Type: EQUAL
+              Serial Number: 3
+              Left:
+                Node Type: IDENTIFIER
+                  Identifier: request
+                  Serial Number: 4
+              Right:
+                Node Type: IDENTIFIER
+                  Identifier: client_commit_success
+                  Serial Number: 5
+          Right:
+            Node Type: NOT
+              Serial Number: 6
+              Child:
+                Node Type: AND
+                  Serial Number: 7
+                  Left:
+                    Node Type: EQUAL
+                      Serial Number: 8
+                      Left:
+                        Node Type: IDENTIFIER
+                          Identifier: rg_container
+                          Serial Number: 9
+                      Right:
+                        Node Type: BOOLEAN
+                          Value: true
+                          Serial Number: 10
+                  Right:
+                    Node Type: EQUAL
+                      Serial Number: 11
+                      Left:
+                        Node Type: IDENTIFIER
+                          Identifier: support
+                          Serial Number: 12
+                      Right:
+                        Node Type: IDENTIFIER
+                          Identifier: supported
+                          Serial Number: 13
+      Right:
+        Node Type: NOT_EQUAL
+          Serial Number: 14
+          Left:
+            Node Type: IDENTIFIER
+              Identifier: response
+              Serial Number: 15
+          Right:
+            Node Type: IDENTIFIER
+              Identifier: timeout
+              Serial Number: 16
+Node Type: H_OPERATOR
+  Serial Number: 0
+  Child:
+    Node Type: IMPLICATION
+      Serial Number: 1
+      Left:
+        Node Type: EQUAL
+          Serial Number: 2
+          Left:
+            Node Type: IDENTIFIER
+              Identifier: request
+              Serial Number: 3
+          Right:
+            Node Type: IDENTIFIER
+              Identifier: client_commit_bad
+              Serial Number: 4
+      Right:
+        Node Type: NOT_EQUAL
+          Serial Number: 5
+          Left:
+            Node Type: IDENTIFIER
+              Identifier: response
+              Serial Number: 6
+          Right:
+            Node Type: IDENTIFIER
+              Identifier: timeout
+              Serial Number: 7
+
+PHY	Interface	Driver		Chipset
+
+phy2	wlan0		rt2800usb	Ralink Technology, Corp. RT5572
+
+		(mac80211 station mode vif already available for [phy2]wlan0 on [phy2]wlx001c500e4630)
+		(mac80211 monitor mode vif disabled for [phy2]wlan0)
+phy0	wlp0s20f3	iwlwifi		14.3 Network controller: Intel Corporation Device 7af0 (rev 11)
+phy2	wlx001c500e4630	rt2800usb	Ralink Technology, Corp. RT5572
+phy27	wlx00873f100eb0	rt2800usb	Ralink Technology, Corp. RT5572
+phy1	wlx00873f200d1e	rt2800usb	Ralink Technology, Corp. RT5572
+

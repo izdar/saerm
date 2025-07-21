@@ -1,0 +1,110 @@
+I'm programming in C. I need to write an HKDF-Extract and HKDF-Expand function for implementing the hash-to-element algorithm for secp256r1. Here is the psudocode for the hash-to-element algorithm:
+
+len = olen(p) +  floor(olen(p) /2)
+
+pwd-seed = HKDF-Extract(ssid, password [|| identifier])
+
+pwd-value = HKDF-Expand(pwd-seed, “SAE Hash to Element u1 P1”, len)
+
+u1 = pwd-value modulo p
+
+P1 = SSWU(u1)
+
+pwd-value = HKDF-Expand(pwd-seed, “SAE Hash to Element u2 P2”, len)
+
+u2 = pwd-value modulo p
+
+P2 = SSWU(u2)
+
+PT = elem-op(P1, P2)
+
+where
+
+KDF-Extract() and HKDF-Expand() are the functions defined in IETF RFC 5869, instantiated with the hash algorithm
+
+ssid is an octet string that represents the SSID with which the password is to be used
+
+olen() returns the length of its argument in octets
+
+[|| identifier] indicates the optional inclusion of a password identifier, if present
+
+SSWU(u) is a call to the Simple SWU routine passing in parameter u
+
+The SSWU method produces two values, x1, and x2, at least one of which will represent an abscissa of a point
+
+on the curve. If x1 is the abscissa, then x1 becomes the x-coordinate otherwise x2 becomes the x-coordinate.
+
+The equation of the curve with the x-coordinate produces the square of the y-coordinate which is recovered by
+
+taking the square root. The two possible results of the square root are discriminated by checking its least
+
+significant bit with the least significant bit of u. The result is a point on the curve.
+
+The SSWU method takes a curve-specific parameter, z, which is determined from the following formula, given
+
+p, a, and b, from the curve’s domain parameter set:
+
+Assign a counter, ctr, the value 1. If the following conditions are true for n = ctr then z = ctr.
+
+Otherwise, if they are true for n = – ctr then z = – ctr. Otherwise increment ctr and repeat until a value
+
+for z is found.
+
+i) n is not a quadratic residue modulo p
+
+ii) n is not –1
+
+iii) the polynomial x3 + a × x + b – n is irreducible
+
+iv) (b/(n × a))3 + a × (b/(n × a)) + b is a quadratic residue modulo p
+
+Algorithmically, the Simplified SWU method is:
+
+SSWU(u) {
+
+m = (z2 × u4 + z × u2) modulo p
+
+l = CEQ(m, 0)
+
+t = inv0(m)
+
+x1 = CSEL(l, (b / (z × a) modulo p), ((– b/a) × (1 + t)) modulo p)
+
+gx1 = (x13 + a × x1 + b) modulo p
+
+x2 = (z × u2 × x1) modulo p
+
+gx2 = (x23 + a × x2 + b) modulo p
+
+l = gx1 is a quadratic residue modulo p
+
+v = CSEL(l, gx1, gx2)
+
+x = CSEL(l, x1, x2 )
+
+y = sqrt(v)
+
+l = CEQ(LSB(u), LSB(y))
+
+P = CSEL(l, (x,y), (x, p – y))
+
+output P
+
+}
+
+where
+
+p, a, and b are all defined in the domain parameter set for the curve
+
+z is a curve-specific parameter, for us its -10
+
+inv0(x) is calculated as x^((p-2) modulo p
+
+x is a quadratic residue if x^((p-1)/2) modulo p is zero or one
+
+LSB(x) returns the least significant bit of x
+
+CSEL(x,y,z) operates in constant time and returns y if x is true and z otherwise
+
+CEQ(x,y) operates in constant time and returns true if x equals y and false otherwise
+
