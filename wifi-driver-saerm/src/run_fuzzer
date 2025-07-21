@@ -28,7 +28,7 @@ rm -f runtime_monitor.txt
 # sudo ./fuzzer Pirwani-TP-Link_0C78 correctPassword 00873f200d1e 5c628b0d0c77 wlan0 wlx00873f200d1e ../../WiFiPacketGen/sync/message.txt ../../WiFiPacketGen/sync/response.txt ../../WiFiPacketGen/sync/oracle-response.txt
 
 
-sudo ./fuzzer testbed correctPassword 020000000100 020000000300 wlan1 wlan1 ../../WiFiPacketGen/sync/message.txt ../../WiFiPacketGen/sync/response.txt ../../WiFiPacketGen/sync/oracle-response.txt
+sudo ./fuzzer testbed correctPassword 020000000000 020000000100 wlan0 wlan0 ../../WiFiPacketGen/sync/message.txt ../../WiFiPacketGen/sync/response.txt ../../WiFiPacketGen/sync/oracle-response.txt
 
 #Trace replayer:
 # sudo ./fuzzer pirwani correctPassword 020000000100 020000000300 wlan1 wlan1 interesting_traces.txt output_from_replayer.txt ../../WiFiPacketGen/sync/oracle-response.txt
