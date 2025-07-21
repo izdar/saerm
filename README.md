@@ -15,9 +15,9 @@ The above command will only work if your Linux distribution (by default) provide
 See [backport drivers](#id-backport-drivers) to manually compile this kernel module.
 
 Then from the root of the repository:
-
-> cd hostapd-wpa3/hostapd/
-> bash run_ap.sh
-
+```bash
+cd hostapd-wpa3/hostapd/
+bash run_ap.sh
+```
 This will get the virtual interfaces setup in monitor mode for WiFi testing.
 
