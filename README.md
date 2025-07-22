@@ -29,7 +29,7 @@ This will get the virtual interfaces setup in monitor mode for WiFi testing.
 ## Download cvc5 1.3.0 and add to $PATH
 
 See the 1.3.0 releases here: https://github.com/cvc5/cvc5/releases/tag/cvc5-1.3.0, download
-<your-os>-static.zip, unzip it, and add the binary to your path as follows.
+`<your-os>-static.zip`, unzip it, and add the binary to your path as follows.
 ```bash
 export PATH="<path_to_unzipped_cvc5_folder/bin>:$PATH"
 ```
